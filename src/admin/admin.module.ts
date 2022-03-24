@@ -6,15 +6,20 @@ import { PostModule } from 'src/post/post.module';
 import { getModelToken } from '@nestjs/mongoose';
 import { Post } from 'src/post/post.schema';
 import { Model } from 'mongoose';
+import { AuthModule } from 'src/auth/auth.module';
+import { User } from 'src/auth/user.schema';
 
 AdminJS.registerAdapter(AdminJSMongoose);
 
 @Module({
     imports: [
         AdminBroModule.createAdminAsync({
-        imports: [PostModule],
-        inject: [getModelToken(Post.name)],
-        useFactory: (postModel: Model<Post>) => ({
+        imports: [PostModule, AuthModule],
+        inject: [
+          getModelToken(Post.name),
+          getModelToken(User.name)
+        ],
+        useFactory: (postModel: Model<Post>, userModel: Model<User>) => ({
             adminJsOptions: {
               rootPath: '/admin',
               resources: [
@@ -27,6 +32,9 @@ AdminJS.registerAdapter(AdminJSMongoose);
                     },
                   },                
                 },
+                {
+                  resource: userModel
+                },
               ],
               //admin메인화면
               dashboard: {
@@ -38,7 +46,7 @@ AdminJS.registerAdapter(AdminJSMongoose);
                 logo: false,
               },
             },
-            //admin계정
+            //admin계정 todo.env
             auth: {
               authenticate: async (email, password) => Promise.resolve({ email: 'hob4410@gmail.com' }),
               cookieName: 'admin',
