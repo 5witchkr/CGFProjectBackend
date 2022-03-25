@@ -21,8 +21,9 @@ export class UserRepository{
         try {
             await user.save();
         } catch (error) {
-            if (error.code == '23505') {
-                throw new ConflictException('Existing email');
+            console.log('error :', error);
+            if (error.code == '11000') {
+                throw new ConflictException('Existing email or nickname');
             } else {
                 throw new InternalServerErrorException();
             }
