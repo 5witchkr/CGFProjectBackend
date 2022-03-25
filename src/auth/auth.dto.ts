@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from "class-validator";
 
 
 export class AuthDto {
@@ -21,4 +21,8 @@ export class AuthDto {
     @MinLength(1)
     @MaxLength(20)
     nickname: string;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    company: boolean;
 }
