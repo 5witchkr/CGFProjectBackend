@@ -1,4 +1,5 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { AuthLoginDto } from './auth-login.dto';
 import { AuthDto } from './auth.dto';
 import { AuthService } from './auth.service';
 
@@ -13,5 +14,11 @@ export class AuthController {
     @Post('join')
     join(@Body(ValidationPipe) authDto: AuthDto): Promise<void> {
         return this.authService.join(authDto);
+    }
+
+    //login
+    @Post('login')
+    login(@Body(ValidationPipe) authLoginDto: AuthLoginDto): Promise<{accessToken}> {
+        return this.authService.login(authLoginDto);
     }
 }

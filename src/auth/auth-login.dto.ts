@@ -1,0 +1,18 @@
+import { IsEmail, IsString, Matches, MaxLength, MinLength } from "class-validator";
+
+
+export class AuthLoginDto {
+    @IsString()
+    @MinLength(4)
+    @IsEmail()
+    @MaxLength(40)
+    email: string;
+
+    @IsString()
+    @MinLength(4)
+    @MaxLength(20)
+    @Matches(/^[a-zA-Z0-9]*$/, {
+        message: 'password only accepts english and number'
+    })
+    password: string;
+}

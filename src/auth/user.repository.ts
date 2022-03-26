@@ -29,4 +29,8 @@ export class UserRepository{
             }
         }
     }
+
+    async findEmail(email: string): Promise<User | null> {
+        return this.userModel.findOne({email});
+    }
 }
