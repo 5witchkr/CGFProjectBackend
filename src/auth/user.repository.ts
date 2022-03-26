@@ -2,7 +2,7 @@ import { ConflictException, Injectable, InternalServerErrorException } from "@ne
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "./user.schema";
 import {Model} from 'mongoose';
-import { AuthDto } from "./auth.dto";
+import { AuthDto } from "./dto/auth.dto";
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
