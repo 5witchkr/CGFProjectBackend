@@ -21,9 +21,9 @@ export class UserRepository{
         try {
             await user.save();
         } catch (error) {
-            console.log('error :', error);
+            const errorobj = error.keyValue
             if (error.code == '11000') {
-                throw new ConflictException('Existing email or nickname');
+                throw new ConflictException(`Existing ${Object.keys(errorobj)[0]}`);
             } else {
                 throw new InternalServerErrorException();
             }
