@@ -1,14 +1,13 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt.guard';
+import { GetUser } from './get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
-
-    //validationPip를 만들어줄것임, type은 auth-Dto
-    //로직은 authservice-join으로 할것
 
     //join
     @Post('join')
@@ -20,5 +19,12 @@ export class AuthController {
     @Post('login')
     login(@Body(ValidationPipe) authLoginDto: AuthLoginDto): Promise<{accessToken}> {
         return this.authService.login(authLoginDto);
+    }
+
+    //jwt token strategy test
+    @Post('testjwt')
+    @UseGuards(JwtAuthGuard)
+    testjwt(@GetUser() authDto: AuthDto) {
+        console.log('user:',authDto)
     }
 }
