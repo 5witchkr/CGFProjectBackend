@@ -9,7 +9,7 @@ import { GetUser } from './get-user.decorator';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    //join
+    //join(todo 메일인증 토큰 검증 추가하기)
     @Post('join')
     join(@Body(ValidationPipe) authDto: AuthDto): Promise<void> {
         return this.authService.join(authDto);
@@ -21,10 +21,21 @@ export class AuthController {
         return this.authService.login(authLoginDto);
     }
 
+    //todo mail인증 보내기
+
+    //todo mail인증 체크 (토큰보내기)
+
+
     //jwt token strategy test
     @Post('testjwt')
     @UseGuards(JwtAuthGuard)
     testjwt(@GetUser() authDto: AuthDto) {
         console.log('user:',authDto)
+    }
+
+    //mailer Test
+    @Post('testmailer')
+    testmailer(@Body(ValidationPipe) email:string): Promise<any>{
+        return this.authService.sendMail(email);
     }
 }

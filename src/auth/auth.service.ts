@@ -5,12 +5,14 @@ import * as bcrypt from 'bcryptjs';
 import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userRepository: UserRepository,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private readonly mailerService: MailerService,
     ) {}
 
     //join
@@ -37,6 +39,22 @@ export class AuthService {
             return { accessToken };
         } else {
             throw new UnauthorizedException('Check your email or password !');
+        }
+    }
+
+    //emailsend Test
+    async sendMail(email: string) {
+        const userEmail = Object.values(email)[0]
+        try {
+            const number: number = 111111;
+            await this.mailerService.sendMail({
+                to: userEmail,
+                subject: '인증이메일요청입니다.',
+                html: '6자리 인증코드 :' + `<b>${number}</b>`,
+            });
+            return number;
+        } catch (err) {
+            console.log(err);
         }
     }
 }
