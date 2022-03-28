@@ -33,7 +33,7 @@ export class AuthController {
         console.log('user:',authDto)
     }
 
-    //mailer Test
+    //mailer Test todo 입력메일 유효성검사 추가
     @Post('testmailer')
     testmailer(@Body(ValidationPipe) email:string): Promise<any>{
         return this.authService.sendMail(email);

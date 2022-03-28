@@ -6,6 +6,7 @@ import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { MailerService } from '@nestjs-modules/mailer';
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +43,7 @@ export class AuthService {
         }
     }
 
-    //emailsend Test
+    //emailsend Test //todo email유효성검사
     async sendMail(email: string) {
         const userEmail = Object.values(email)[0]
         try {
