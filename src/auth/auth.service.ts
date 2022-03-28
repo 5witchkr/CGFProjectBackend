@@ -6,7 +6,8 @@ import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { MailerService } from '@nestjs-modules/mailer';
-import * as crypto from 'crypto-js';
+import { randomInt } from 'crypto';
+
 
 @Injectable()
 export class AuthService {
@@ -47,10 +48,10 @@ export class AuthService {
     async sendMail(email: string) {
         const userEmail = Object.values(email)[0]
         try {
-            const number: number = 111111;
+            const number: number = randomInt(111111,999999);
             await this.mailerService.sendMail({
                 to: userEmail,
-                subject: '인증이메일요청입니다.',
+                subject: '인증메일 요청입니다.',
                 html: '6자리 인증코드 :' + `<b>${number}</b>`,
             });
             return number;
