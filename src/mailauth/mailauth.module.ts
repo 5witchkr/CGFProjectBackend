@@ -1,6 +1,6 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MailAuthController } from './mailauth.controller';
 import { MailAuthService } from './mailauth.service';
@@ -8,6 +8,9 @@ import { MailAuthService } from './mailauth.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    CacheModule.register({
+      ttl: 180
+    }),
     MailerModule.forRoot({
       transport: {
         service: 'gmail',

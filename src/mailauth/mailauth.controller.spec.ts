@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MailauthController } from './mailauth.controller';
+import { MailAuthController } from './mailauth.controller';
 
-describe('MailauthController', () => {
-  let controller: MailauthController;
+describe('MailAuthController', () => {
+  let controller: MailAuthController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MailauthController],
+      controllers: [MailAuthController],
     }).compile();
 
-    controller = module.get<MailauthController>(MailauthController);
+    controller = module.get<MailAuthController>(MailAuthController);
   });
 
   it('should be defined', () => {
