@@ -36,7 +36,6 @@ export class AuthController {
     //mailer Test todo 입력메일 유효성검사 추가
     @Post('testmailer')
     testmailer(@Body(ValidationPipe) email:string): Promise<any>{
-        const accessNumber = this.authService.sendMail(email);
         return this.authService.sendMail(email);
     }
 }

@@ -44,7 +44,7 @@ export class AuthService {
         }
     }
 
-    //emailsend Test //todo email유효성검사
+    //emailsend Test //todo email유효성검사 //todo 인증번호 캐싱하기
     async sendMail(email: string) {
         const userEmail = Object.values(email)[0]
         try {
