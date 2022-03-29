@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
+import { MailauthModule } from './mailauth/mailauth.module';
 
 
 @Module({
@@ -12,7 +13,8 @@ import { AuthModule } from './auth/auth.module';
     MongooseModule.forRoot(process.env.MONGO_URL),
     PostModule,
     AdminModule,
-    AuthModule
+    AuthModule,
+    MailauthModule
   ],
 })
 export class AppModule {}

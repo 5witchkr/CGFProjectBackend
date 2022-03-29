@@ -1,4 +1,3 @@
-import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -9,7 +8,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UserRepository } from './user.repository';
 import { User, UserSchema } from './user.schema';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+
 
 @Module({
   imports: [
@@ -21,25 +20,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       signOptions: {
         expiresIn: 3600
       }
-    }),
-    MailerModule.forRoot({
-      transport: {
-        service: 'gmail',
-        host: 'smtp.google.com',
-        secure: 'false',
-        port: 587,
-        auth: {
-          user: process.env.EMAIL_ID,
-          pass: process.env.EMAIL_PASS,
-        },
-        template: {
-          dir: process.cwd() + '/template/',
-          adapter: new HandlebarsAdapter(),
-          options: {
-            strict: true,
-          },
-        },
-      },
     }),
   ],
   controllers: [AuthController],
