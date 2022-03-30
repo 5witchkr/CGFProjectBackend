@@ -20,7 +20,7 @@ export class UserRepository{
 
         try {
             await user.save();
-        } catch (error) {
+        } catch (error:any) {
             const errorobj = error.keyValue
             if (error.code == '11000') {
                 throw new ConflictException(`Existing ${Object.keys(errorobj)[0]}`);
