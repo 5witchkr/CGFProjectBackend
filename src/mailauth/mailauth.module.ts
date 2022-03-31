@@ -2,6 +2,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { MailAuthController } from './mailauth.controller';
 import { MailAuthService } from './mailauth.service';
 
@@ -29,6 +31,13 @@ import { MailAuthService } from './mailauth.service';
           },
         },
       },
+    }),
+    PassportModule.register({ defaultStrategy: 'jwt'}),
+    JwtModule.register({
+      secret: process.env.JWT_KEY,
+      signOptions: {
+        expiresIn: 300
+      }
     }),
   ],
   controllers: [MailAuthController],

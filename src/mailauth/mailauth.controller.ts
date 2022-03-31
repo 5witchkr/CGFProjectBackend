@@ -1,7 +1,7 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { MailAuthService } from './mailauth.service';
-import { MailEmail } from './mailemail.dto';
-import { MailMatch } from './mailmatch.dto';
+import { MailEmail } from './dto/mailemail.dto';
+import { MailMatch } from './dto/mailmatch.dto';
 
 @Controller('mailauth')
 export class MailAuthController {
@@ -17,7 +17,7 @@ export class MailAuthController {
 
     // // todo 토큰보내기
     @Post('testcache')
-    testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<void>{
-        return this.mailAuthService.findcache(mailMatch);
+    testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<{accessToken}>{
+        return this.mailAuthService.mailcode(mailMatch);
     }
 }

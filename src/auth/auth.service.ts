@@ -5,7 +5,6 @@ import * as bcrypt from 'bcryptjs';
 import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
-import { MailerService } from '@nestjs-modules/mailer';
 
 
 @Injectable()
@@ -13,10 +12,9 @@ export class AuthService {
     constructor(
         private userRepository: UserRepository,
         private jwtService: JwtService,
-        private readonly mailerService: MailerService,
     ) {}
 
-    //join
+    //join todo token일치검증
     async join(authDto: AuthDto): Promise<void> {
         return this.userRepository.UserJoin(authDto);
     }

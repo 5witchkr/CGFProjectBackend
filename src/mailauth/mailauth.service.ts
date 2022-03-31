@@ -1,16 +1,21 @@
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { randomInt } from 'crypto';
 import { Cache } from 'cache-manager';
-import { MailMatch } from './mailmatch.dto';
-import { MailEmail } from './mailemail.dto';
+import { MailMatch } from './dto/mailmatch.dto';
+import { MailEmail } from './dto/mailemail.dto';
+import { Payload } from 'src/auth/payload.interface';
+import { JwtService } from '@nestjs/jwt';
 
 
 @Injectable()
 export class MailAuthService {
     constructor(
         private readonly mailerService: MailerService,
-        @Inject(CACHE_MANAGER) private cacheManager: Cache
+        //use cache
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        //use jwttoken
+        private readonly jwtService: JwtService
     ) {}
 
     //emailsend Test
@@ -33,13 +38,16 @@ export class MailAuthService {
     }
 
     //todo return token
-    async findcache(mailMatch: MailMatch): Promise<void> {
+    async mailcode(mailMatch: MailMatch): Promise<{accessToken}> {
         const { email, mailcode } = mailMatch;
         const value: number = await this.cacheManager.get(email);
         if (mailcode == value) {
             console.log("true");
+            const payload: Payload ={ email };
+            const accessToken = await this.jwtService.sign(payload);
+            return { accessToken };
         } else {
-            console.log("false");
+            throw new UnauthorizedException('access failed');
         }
     }
 }
