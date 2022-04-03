@@ -4,6 +4,7 @@ import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt.guard';
 import { GetUser } from './get-user.decorator';
+import { MailJwtGuard } from 'src/mailauth/mail-jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -11,6 +12,7 @@ export class AuthController {
 
     //join(todo 메일인증 토큰 검증 추가하기)
     @Post('join')
+    @UseGuards(MailJwtGuard)
     join(@Body(ValidationPipe) authDto: AuthDto): Promise<void> {
         return this.authService.join(authDto);
     }

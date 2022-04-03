@@ -4,6 +4,7 @@ import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { MailJwtStrategy } from './mail-jwt.strategy';
 import { MailAuthController } from './mailauth.controller';
 import { MailAuthService } from './mailauth.service';
 
@@ -36,11 +37,13 @@ import { MailAuthService } from './mailauth.service';
     JwtModule.register({
       secret: process.env.JWT_KEY,
       signOptions: {
-        expiresIn: 300
+        //잠깐 늘려놓을것임 원래 300(5분)
+        expiresIn: 3000
       }
     }),
   ],
   controllers: [MailAuthController],
-  providers: [MailAuthService]
+  providers: [MailAuthService,MailJwtStrategy],
+  exports: [MailJwtStrategy, PassportModule]
 })
 export class MailauthModule {}

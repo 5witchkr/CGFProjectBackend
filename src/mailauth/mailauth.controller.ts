@@ -1,7 +1,9 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { MailAuthService } from './mailauth.service';
 import { MailEmail } from './dto/mailemail.dto';
 import { MailMatch } from './dto/mailmatch.dto';
+import { MailJwtGuard } from './mail-jwt.guard';
+import { GetMailJwt } from './mail-jwt.decorator';
 
 @Controller('mailauth')
 export class MailAuthController {
@@ -15,9 +17,16 @@ export class MailAuthController {
     }
 
 
-    // // todo 토큰보내기
+    // todo 토큰보내기
     @Post('testcache')
     testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<{accessToken}>{
         return this.mailAuthService.mailcode(mailMatch);
+    }
+
+    //jwt token strategy test
+    @Post('testjwt')
+    @UseGuards(MailJwtGuard)
+    testjwt(@GetMailJwt() mailEmail: MailEmail) {
+        console.log('email:',mailEmail)
     }
 }
