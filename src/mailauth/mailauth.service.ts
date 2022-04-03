@@ -43,7 +43,7 @@ export class MailAuthService {
         const value: number = await this.cacheManager.get(email);
         if (mailcode == value) {
             console.log("true");
-            const payload: MailEmail = { email };
+            const payload: any = { email };
             const accessToken = await this.jwtService.sign(payload);
             return { accessToken };
         } else {

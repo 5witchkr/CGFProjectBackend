@@ -11,12 +11,7 @@ export class MailJwtStrategy extends PassportStrategy(Strategy) {
             secretOrKey: process.env.JWT_KEY,
         })
     }
-    async validate(payload) {
-        const {email} = payload;
-        console.log(payload);
-        if(!email) {
-            throw new UnauthorizedException();
-        }
-        return email;
+    async validate(payload:any) {
+        return { email: payload.email };
     }
 }
