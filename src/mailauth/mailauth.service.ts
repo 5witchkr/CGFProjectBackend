@@ -4,7 +4,6 @@ import { randomInt } from 'crypto';
 import { Cache } from 'cache-manager';
 import { MailMatch } from './dto/mailmatch.dto';
 import { MailEmail } from './dto/mailemail.dto';
-import { JwtService } from '@nestjs/jwt';
 
 
 @Injectable()
@@ -14,7 +13,7 @@ export class MailAuthService {
         //use cache
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
         //use jwttoken
-        private readonly jwtService: JwtService
+        // private readonly jwtService: JwtService
     ) {}
 
     //emailsend Test
@@ -43,8 +42,10 @@ export class MailAuthService {
         if (mailcode == value) {
             console.log("true");
             const payload: any = { email };
-            const accessToken = await this.jwtService.sign(payload);
-            return { accessToken };
+            // const accessToken = await this.jwtService.sign(payload);
+            // return { accessToken };
+            //임시return
+            return
         } else {
             throw new UnauthorizedException('access failed');
         }
