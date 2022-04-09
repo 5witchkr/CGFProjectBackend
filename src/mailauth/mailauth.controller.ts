@@ -17,13 +17,13 @@ export class MailAuthController {
     }
 
 
-    // todo 토큰보내기
+    // todo 토큰보내기 //todo 토큰 인증문제있음
     @Post('testcache')
     testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<{accessToken}>{
         return this.mailAuthService.mailcode(mailMatch);
     }
 
-    //jwt token strategy test
+    //jwt token strategy test //todo 다시만들기
     @Post('testjwt')
     @UseGuards(MailJwtGuard)
     testjwt(@GetMailJwt() mailEmail: MailEmail) {

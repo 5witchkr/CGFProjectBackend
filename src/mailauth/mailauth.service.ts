@@ -4,7 +4,6 @@ import { randomInt } from 'crypto';
 import { Cache } from 'cache-manager';
 import { MailMatch } from './dto/mailmatch.dto';
 import { MailEmail } from './dto/mailemail.dto';
-import { Payload } from 'src/auth/payload.interface';
 import { JwtService } from '@nestjs/jwt';
 
 
