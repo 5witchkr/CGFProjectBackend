@@ -15,11 +15,9 @@ export class MailAuthController {
     }
 
 
-    // todo 토큰보내기 //todo 토큰 import해오기
+    // todo 캐시설정
     @Post('testcache')
-    testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<{accessToken}>{
+    testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<void>{
         return this.mailAuthService.mailcode(mailMatch);
     }
-
-    //jwt token strategy test //todo 다시만들기(언디파인뜸)
 }

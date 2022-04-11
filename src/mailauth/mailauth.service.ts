@@ -12,8 +12,6 @@ export class MailAuthService {
         private readonly mailerService: MailerService,
         //use cache
         @Inject(CACHE_MANAGER) private cacheManager: Cache,
-        //use jwttoken
-        // private readonly jwtService: JwtService
     ) {}
 
     //emailsend Test
@@ -36,16 +34,13 @@ export class MailAuthService {
     }
 
     //todo return token
-    async mailcode(mailMatch: MailMatch): Promise<{accessToken}> {
+    async mailcode(mailMatch: MailMatch): Promise<void> {
         const { email, mailcode } = mailMatch;
         const value: number = await this.cacheManager.get(email);
         if (mailcode == value) {
             console.log("true");
-            const payload: any = { email };
-            // const accessToken = await this.jwtService.sign(payload);
-            // return { accessToken };
-            //임시return
-            return
+            await this.cacheManager.set(email,email);
+            console.log(this.cacheManager.get(email));
         } else {
             throw new UnauthorizedException('access failed');
         }

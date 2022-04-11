@@ -1,10 +1,11 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcryptjs';
 import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
+import { Cache } from 'cache-manager';
 
 
 @Injectable()
@@ -12,10 +13,14 @@ export class AuthService {
     constructor(
         private userRepository: UserRepository,
         private jwtService: JwtService,
+         //use cache
+         @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {}
 
-    //join todo token일치검증
+    //join todo mailauth-cache일치검증
     async join(authDto: AuthDto): Promise<void> {
+        const { email } = authDto;
+        console.log(this.cacheManager.get(email))
         return this.userRepository.UserJoin(authDto);
     }
 

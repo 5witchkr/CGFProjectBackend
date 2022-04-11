@@ -33,5 +33,6 @@ import { MailAuthService } from './mailauth.service';
   ],
   controllers: [MailAuthController],
   providers: [MailAuthService],
+  exports: [CacheModule],
 })
 export class MailauthModule {}
