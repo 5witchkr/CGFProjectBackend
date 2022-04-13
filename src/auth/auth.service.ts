@@ -17,11 +17,17 @@ export class AuthService {
          @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {}
 
-    //join todo mailauth-cache일치검증
+    //join
     async join(authDto: AuthDto): Promise<void> {
         const { email } = authDto;
-        console.log(this.cacheManager.get(email))
-        return this.userRepository.UserJoin(authDto);
+        console.log(await this.cacheManager.get(email));
+        console.log(email)
+        //email과 mailauth-cache일치 검증
+        if (await this.cacheManager.get(email) == email) {
+            return this.userRepository.UserJoin(authDto);
+        } else {
+            return
+        }
     }
 
     //login
