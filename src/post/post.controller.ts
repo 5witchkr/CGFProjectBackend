@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 import { PostDto } from './dto/post.dto';
 import { PostService } from './post.service';
 
@@ -16,6 +16,11 @@ export class PostController {
     
 
     //todo post post
+    //todo jwt auth
+    @Post('create')
+    createPost(@Body(ValidationPipe) postDto: PostDto): Promise<void> {
+        return this.postService.createPost(postDto);
+    }
 
 
     //todo post delete
