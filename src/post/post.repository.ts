@@ -13,6 +13,12 @@ export class PostRepository{
     //findAll
     async findAll(): Promise<Post[] | null> {
         return this.postModel.find();
+    }
 
+    //create
+    async createPost(postDto: PostDto): Promise<void> {
+        const { nickname, title, contents } = postDto;
+        const post = new this.postModel({nickname, title, contents});
+        await post.save();
     }
 }
