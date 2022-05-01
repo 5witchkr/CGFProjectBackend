@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, ValidationPipe } from '@nestjs/common';
 import { PostDto } from './dto/post.dto';
 import { PostService } from './post.service';
 
@@ -14,12 +14,17 @@ export class PostController {
         return this.postService.getAllPost();
     }
     
-
     //todo post post
     //todo jwt auth
     @Post('create')
     createPost(@Body(ValidationPipe) postDto: PostDto): Promise<void> {
         return this.postService.createPost(postDto);
+    }
+
+    //todo jwt auth
+    @Get(':id')
+    getOneContent(@Param('id') id: string): Promise<PostDto | null> {
+        return this.postService.findOnePost(id);
     }
 
 
