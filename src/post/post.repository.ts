@@ -21,4 +21,9 @@ export class PostRepository{
         const post = new this.postModel({nickname, title, contents});
         await post.save();
     }
+
+    async findPost(id: string): Promise<Post | null> {
+        return this.postModel.findOne({id});
+    }
+
 }

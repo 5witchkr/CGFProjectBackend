@@ -12,10 +12,12 @@ export class PostService {
         return this.postRepository.findAll();
     }
 
-    
-
     async createPost(postDto: PostDto): Promise<void> {
         return this.postRepository.createPost(postDto);
+    }
+
+    async findOnePost(id: string): Promise<PostDto | null> {
+        return this.postRepository.findPost(id);
     }
 
 }
