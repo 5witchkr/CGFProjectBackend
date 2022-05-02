@@ -22,8 +22,14 @@ export class PostRepository{
         await post.save();
     }
 
+    //findOne
     async findPost(id: string): Promise<Post | null> {
-        return this.postModel.findOne({id});
+        return this.postModel.findById(id);
+    }
+
+    //delete
+    async deletePost(id: string): Promise<void> {
+        await this.postModel.findByIdAndRemove(id);
     }
 
 }
