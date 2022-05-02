@@ -8,16 +8,20 @@ export class PostService {
         private postRepository: PostRepository,
         ){}
 
-    async getAllPost(): Promise<PostDto[] | null> {
+    async getAllPostService(): Promise<PostDto[] | null> {
         return this.postRepository.findAll();
     }
 
-    async createPost(postDto: PostDto): Promise<void> {
+    async createPostService(postDto: PostDto): Promise<void> {
         return this.postRepository.createPost(postDto);
     }
 
-    async findOnePost(id: string): Promise<PostDto | null> {
+    async findOnePostService(id: string): Promise<PostDto | null> {
         return this.postRepository.findPost(id);
+    }
+
+    async deletePostService(id: string): Promise<void> {
+        return this.postRepository.deletePost(id);
     }
 
 }
