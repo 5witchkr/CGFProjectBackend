@@ -4,6 +4,7 @@ import { PostDto } from "./dto/post.dto";
 import { Post, PostDocument } from "./post.schema";
 import {Model} from 'mongoose';
 
+
 @Injectable()
 export class PostRepository{
     //todo repository 작성
@@ -30,6 +31,12 @@ export class PostRepository{
     //delete
     async deletePost(id: string): Promise<void> {
         await this.postModel.findByIdAndRemove(id);
+    }
+
+    //put
+    async updatePost(id: string, postDto: PostDto): Promise<void> {
+        const { nickname, title, contents } = postDto;
+        await this.postModel.findByIdAndUpdate(id,{nickname, title, contents});
     }
 
 }
