@@ -9,9 +9,8 @@ import { GetUser } from './get-user.decorator';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    //join(todo 메일인증 토큰 검증 추가하기)
+    //join
     @Post('join')
-    // @UseGuards(MailJwtGuard)
     join(@Body(ValidationPipe) authDto: AuthDto): Promise<void> {
         return this.authService.join(authDto);
     }
