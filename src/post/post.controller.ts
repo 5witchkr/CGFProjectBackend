@@ -1,4 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { AuthDto } from 'src/auth/dto/auth.dto';
+import { GetUser } from 'src/auth/get-user.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { PostDto } from './dto/post.dto';
 import { PostService } from './post.service';
@@ -19,10 +21,15 @@ export class PostController {
     }
     
     //todo post post
-    //todo jwt auth + get user param
+    //todo jwt auth + get user jwt
     @Post('create')
-    createPost(@Body(ValidationPipe) postDto: PostDto): Promise<void> {
-        return this.postService.createPostService(postDto);
+    @UseGuards(JwtAuthGuard)
+    createPost(
+        @Body(ValidationPipe) postDto: PostDto,
+        @GetUser() authDto: AuthDto): Promise<void> {
+            //tood service,repository validate user
+            console.log('user:',authDto)
+            return this.postService.createPostService(postDto);
     }
 
     @Get(':id')
@@ -32,19 +39,30 @@ export class PostController {
     }
 
 
-    //todo jwt auth + get user param
+    //todo jwt auth + get user jwt
     @Delete(':id')
-    deletePost(@Param('id') id: string): Promise<void> {
-        return this.postService.deletePostService(id);
+    @UseGuards(JwtAuthGuard)
+    deletePost(
+        @Param('id') id: string,
+        @GetUser() authDto: AuthDto): Promise<void> {
+            //tood service,repository validate user
+            console.log('user:',authDto)
+            return this.postService.deletePostService(id);
     }
+    
+    
 
 
-    //todo jwt auth + get user param
+    //todo jwt auth + get user jwt
     @Put(':id')
+    @UseGuards(JwtAuthGuard)
     updatePost(
         @Param('id') id: string,
-        @Body(ValidationPipe)postDto: PostDto): Promise<void> {
-        return this.postService.updatePostService(id,postDto);
+        @Body(ValidationPipe)postDto: PostDto,
+        @GetUser() authDto: AuthDto): Promise<void> {
+            //tood service,repository validate user
+            console.log('user:',authDto)
+            return this.postService.updatePostService(id,postDto);
     }
 
 
