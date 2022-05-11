@@ -3,7 +3,6 @@ import { AuthDto } from 'src/auth/dto/auth.dto';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { PostDto } from './dto/post.dto';
-import { PostTestDto } from './dto/postTest.dto';
 import { PostService } from './post.service';
 
 @Controller('post')
@@ -22,14 +21,14 @@ export class PostController {
     }
     
     //todo post post
-    //todo jwt auth + get user jwt
+    //jwt auth + get user jwt
     @Post('create')
     @UseGuards(JwtAuthGuard)
     createPost(
-        @Body(ValidationPipe) postTestDto: PostTestDto,
+        @Body(ValidationPipe) postDto: PostDto,
         @GetUser() authDto: AuthDto): Promise<void> {
             console.log('user:',authDto)
-            return this.postService.createPostService(postTestDto, authDto);
+            return this.postService.createPostService(postDto, authDto);
     }
 
     @Get(':id')
