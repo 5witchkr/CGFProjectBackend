@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { PostDto } from './dto/post.dto';
-import { PostTestDto } from './dto/postTest.dto';
 import { PostRepository } from './post.repository';
 
 @Injectable()
@@ -14,8 +13,13 @@ export class PostService {
         return this.postRepository.findAll();
     }
 
-    async createPostService(postTestDto: PostTestDto, authDto:AuthDto ): Promise<void> {
-        return this.postRepository.createPost(postTestDto, authDto);
+    async createPostService(postDto: PostDto, authDto:AuthDto ): Promise<void> {
+        //validate request & jwt infomation
+        if (postDto.nickname == authDto.nickname) {
+            return this.postRepository.createPost(postDto, authDto);
+        } else {
+            throw new UnauthorizedException('Fail user information validation');
+        }
     }
 
     async findOnePostService(id: string): Promise<PostDto | null> {

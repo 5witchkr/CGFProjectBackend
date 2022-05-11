@@ -4,7 +4,7 @@ import { PostDto } from "./dto/post.dto";
 import { Post, PostDocument } from "./post.schema";
 import {Model} from 'mongoose';
 import { AuthDto } from "src/auth/dto/auth.dto";
-import { PostTestDto } from "./dto/postTest.dto";
+
 
 
 @Injectable()
@@ -19,8 +19,8 @@ export class PostRepository{
     }
 
     //create
-    async createPost(postTestDto: PostTestDto, authDto: AuthDto): Promise<void> {
-        const { title, contents } = postTestDto;
+    async createPost(postDto: PostDto, authDto: AuthDto): Promise<void> {
+        const { title, contents } = postDto;
         const { nickname } = authDto;
         const post = new this.postModel({nickname, title, contents});
         await post.save();
