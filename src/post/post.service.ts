@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { AuthDto } from 'src/auth/dto/auth.dto';
 import { PostDto } from './dto/post.dto';
+import { PostTestDto } from './dto/postTest.dto';
 import { PostRepository } from './post.repository';
 
 @Injectable()
@@ -12,8 +14,8 @@ export class PostService {
         return this.postRepository.findAll();
     }
 
-    async createPostService(postDto: PostDto): Promise<void> {
-        return this.postRepository.createPost(postDto);
+    async createPostService(postTestDto: PostTestDto, authDto:AuthDto ): Promise<void> {
+        return this.postRepository.createPost(postTestDto, authDto);
     }
 
     async findOnePostService(id: string): Promise<PostDto | null> {

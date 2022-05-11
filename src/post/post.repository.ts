@@ -3,6 +3,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { PostDto } from "./dto/post.dto";
 import { Post, PostDocument } from "./post.schema";
 import {Model} from 'mongoose';
+import { AuthDto } from "src/auth/dto/auth.dto";
+import { PostTestDto } from "./dto/postTest.dto";
 
 
 @Injectable()
@@ -17,8 +19,9 @@ export class PostRepository{
     }
 
     //create
-    async createPost(postDto: PostDto): Promise<void> {
-        const { nickname, title, contents } = postDto;
+    async createPost(postTestDto: PostTestDto, authDto: AuthDto): Promise<void> {
+        const { title, contents } = postTestDto;
+        const { nickname } = authDto;
         const post = new this.postModel({nickname, title, contents});
         await post.save();
     }
