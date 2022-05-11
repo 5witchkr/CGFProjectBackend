@@ -26,7 +26,7 @@ export class AuthService {
         if (await this.cacheManager.get(email) == email) {
             return this.userRepository.UserJoin(authDto);
         } else {
-            return
+            throw new UnauthorizedException('Email Verification Failed');
         }
     }
 
