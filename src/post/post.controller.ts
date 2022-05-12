@@ -44,9 +44,9 @@ export class PostController {
     deletePost(
         @Param('id') id: string,
         @GetUser() authDto: AuthDto): Promise<void> {
-            //tood service,repository validate user
+            //service,repository validate user
             console.log('user:',authDto)
-            return this.postService.deletePostService(id);
+            return this.postService.deletePostService(id, authDto);
     }
     
     

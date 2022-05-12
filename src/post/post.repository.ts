@@ -15,7 +15,7 @@ export class PostRepository{
 
     //findAll
     async findAll(): Promise<Post[] | null> {
-        return this.postModel.find();
+        return await this.postModel.find();
     }
 
     //create
@@ -28,7 +28,7 @@ export class PostRepository{
 
     //findOne
     async findPost(id: string): Promise<Post | null> {
-        return this.postModel.findById(id);
+        return await this.postModel.findById(id);
     }
 
     //delete

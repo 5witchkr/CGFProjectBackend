@@ -13,7 +13,7 @@ export class PostService {
         return this.postRepository.findAll();
     }
 
-    async createPostService(postDto: PostDto, authDto:AuthDto ): Promise<void> {
+    async createPostService(postDto: PostDto, authDto: AuthDto ): Promise<void> {
         //validate request & jwt infomation
         if (postDto.nickname == authDto.nickname) {
             return this.postRepository.createPost(postDto, authDto);
@@ -26,8 +26,13 @@ export class PostService {
         return this.postRepository.findPost(id);
     }
 
-    async deletePostService(id: string): Promise<void> {
-        return this.postRepository.deletePost(id);
+    async deletePostService(id: string, authDto: AuthDto): Promise<void> {
+        //validate post-user & jwt infomation
+        if ((await this.postRepository.findPost(id)).nickname == authDto.nickname) {
+            return this.postRepository.deletePost(id);
+        } else {
+            throw new UnauthorizedException('Fail user information validation')
+        }
     }
 
     async updatePostService(id:string, postDto: PostDto): Promise<void> {
