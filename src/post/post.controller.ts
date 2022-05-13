@@ -49,8 +49,6 @@ export class PostController {
             return this.postService.deletePostService(id, authDto);
     }
     
-    
-
 
     //todo jwt auth + get user jwt
     @Put(':id')
@@ -61,7 +59,7 @@ export class PostController {
         @GetUser() authDto: AuthDto): Promise<void> {
             //tood service,repository validate user
             console.log('user:',authDto)
-            return this.postService.updatePostService(id,postDto);
+            return this.postService.updatePostService(id, postDto, authDto);
     }
 
 

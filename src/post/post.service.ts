@@ -14,11 +14,11 @@ export class PostService {
     }
 
     async createPostService(postDto: PostDto, authDto: AuthDto ): Promise<void> {
-        //validate request & jwt infomation
+        //validate request & jwt information
         if (postDto.nickname == authDto.nickname) {
             return this.postRepository.createPost(postDto, authDto);
         } else {
-            throw new UnauthorizedException('Fail user information validation');
+            throw new UnauthorizedException('Fail user information validate');
         }
     }
 
@@ -27,15 +27,20 @@ export class PostService {
     }
 
     async deletePostService(id: string, authDto: AuthDto): Promise<void> {
-        //validate post-user & jwt infomation
+        //validate post-user & jwt information
         if ((await this.postRepository.findPost(id)).nickname == authDto.nickname) {
             return this.postRepository.deletePost(id);
         } else {
-            throw new UnauthorizedException('Fail user information validation')
+            throw new UnauthorizedException('Fail user information validate')
         }
     }
 
-    async updatePostService(id:string, postDto: PostDto): Promise<void> {
-        await this.postRepository.updatePost(id, postDto);
+    async updatePostService(id:string, postDto: PostDto, authDto: AuthDto): Promise<void> {
+        //validate post-user % jwt information
+        if ((await this.postRepository.findPost(id)).nickname == authDto.nickname) {
+            return await this.postRepository.updatePost(id, postDto, authDto.nickname);
+        } else {
+            throw new UnauthorizedException('Fail user information validate')
+        }
     }
 }
