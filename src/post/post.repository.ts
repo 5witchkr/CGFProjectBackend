@@ -37,8 +37,9 @@ export class PostRepository{
     }
 
     //put
-    async updatePost(id: string, postDto: PostDto): Promise<void> {
-        const { nickname, title, contents } = postDto;
+    async updatePost(id: string, postDto: PostDto, nickname: String): Promise<void> {
+        const { title, contents } = postDto;
+        console.log(nickname);
         await this.postModel.findByIdAndUpdate(id,{nickname, title, contents});
     }
 
