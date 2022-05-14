@@ -15,4 +15,5 @@ export class PostDto {
     @MinLength(1)
     @IsNotEmpty()
     contents: string;
+
 }
