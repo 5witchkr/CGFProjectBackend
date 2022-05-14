@@ -22,7 +22,8 @@ export class PostRepository{
     async createPost(postDto: PostDto, authDto: AuthDto): Promise<void> {
         const { title, contents } = postDto;
         const { nickname } = authDto;
-        const post = new this.postModel({nickname, title, contents});
+        const date = Date();
+        const post = new this.postModel({nickname, title, contents, date});
         await post.save();
     }
 
@@ -39,8 +40,7 @@ export class PostRepository{
     //put
     async updatePost(id: string, postDto: PostDto, nickname: String): Promise<void> {
         const { title, contents } = postDto;
-        console.log(nickname);
         await this.postModel.findByIdAndUpdate(id,{nickname, title, contents});
     }
-
+    
 }

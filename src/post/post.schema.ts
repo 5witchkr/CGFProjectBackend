@@ -13,6 +13,9 @@ export class Post {
 
   @Prop()
   contents: string;
+
+  @Prop()
+  date: Date;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
