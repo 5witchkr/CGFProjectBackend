@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { PostDto } from './dto/post.dto';
+import { PostTitleDto } from './dto/postTitle.dto';
 import { PostRepository } from './post.repository';
 
 @Injectable()
@@ -8,6 +9,12 @@ export class PostService {
     constructor(
         private postRepository: PostRepository,
         ){}
+
+
+    async getPostTitleService(): Promise<PostTitleDto[] | null> {
+        return this.postRepository.findTitle();
+    }
+    
 
     async getAllPostService(): Promise<PostDto[] | null> {
         return this.postRepository.findAll();
