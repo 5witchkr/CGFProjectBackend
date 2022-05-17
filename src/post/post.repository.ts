@@ -4,6 +4,7 @@ import { PostDto } from "./dto/post.dto";
 import { Post, PostDocument } from "./post.schema";
 import {Model} from 'mongoose';
 import { AuthDto } from "src/auth/dto/auth.dto";
+import { PostTitleDto } from "./dto/postTitle.dto";
 
 
 
@@ -12,6 +13,11 @@ export class PostRepository{
     //todo repository 작성
     constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
 
+
+    //findTitle
+    async findTitle(): Promise<PostTitleDto[] | null> {
+        return this.postModel.find({},{"_id": false, "nickname": true, "title":true});
+    }
 
     //findAll
     async findAll(): Promise<Post[] | null> {

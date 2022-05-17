@@ -3,6 +3,7 @@ import { AuthDto } from 'src/auth/dto/auth.dto';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { PostDto } from './dto/post.dto';
+import { PostTitleDto } from './dto/postTitle.dto';
 import { PostService } from './post.service';
 
 @Controller('post')
@@ -10,7 +11,11 @@ export class PostController {
     constructor(private postService: PostService){}
 
 
-    //todo get simple page (no jwt)
+    //get simple page (no jwt)
+    @Get('')
+    getPostTitle(): Promise<PostTitleDto[] | null> {
+        return this.postService.getPostTitleService();
+    }
 
 
     @Get('all')
@@ -57,7 +62,7 @@ export class PostController {
         @Param('id') id: string,
         @Body(ValidationPipe)postDto: PostDto,
         @GetUser() authDto: AuthDto): Promise<void> {
-            //tood service,repository validate user
+            //service,repository validate user
             console.log('user:',authDto)
             return this.postService.updatePostService(id, postDto, authDto);
     }
