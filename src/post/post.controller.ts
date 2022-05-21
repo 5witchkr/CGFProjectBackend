@@ -25,9 +25,9 @@ export class PostController {
         return this.postService.getAllPostService();
     }
     
-    //todo post post
+    //post post
     //jwt auth + get user jwt
-    @Post('create')
+    @Post('')
     @UseGuards(JwtAuthGuard)
     createPost(
         @Body(ValidationPipe) postDto: PostDto,
@@ -43,7 +43,7 @@ export class PostController {
     }
 
 
-    //todo jwt auth + get user jwt
+    //jwt auth + get user jwt
     @Delete(':id')
     @UseGuards(JwtAuthGuard)
     deletePost(
@@ -55,7 +55,7 @@ export class PostController {
     }
     
 
-    //todo jwt auth + get user jwt
+    //jwt auth + get user jwt
     @Put(':id')
     @UseGuards(JwtAuthGuard)
     updatePost(
