@@ -8,15 +8,15 @@ export class MailAuthController {
     constructor(private mailAuthService: MailAuthService) {}
 
 
-    //mailer Test
-    @Post('testmailer')
+    //send mailer
+    @Post('sendmailer')
     testmailer(@Body(ValidationPipe) mailEmail: MailEmail): Promise<void>{
         return this.mailAuthService.sendMail(mailEmail);
     }
 
 
-    // todo 캐시설정
-    @Post('testcache')
+    //mailcode-cachecode validtation logic
+    @Post('mailcode')
     testcache(@Body(ValidationPipe) mailMatch: MailMatch): Promise<void>{
         return this.mailAuthService.mailcode(mailMatch);
     }
