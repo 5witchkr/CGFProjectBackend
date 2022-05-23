@@ -20,6 +20,9 @@ export class User {
 
   @Prop()
   company: boolean;
+
+  @Prop()
+  profileImage: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

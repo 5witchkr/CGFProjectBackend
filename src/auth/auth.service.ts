@@ -6,6 +6,7 @@ import { Payload } from './payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { Cache } from 'cache-manager';
+import { UserProfileDto } from './dto/auth-user.dto';
 
 
 @Injectable()
@@ -51,4 +52,21 @@ export class AuthService {
             throw new UnauthorizedException('Check your email or password !');
         }
     }
+
+
+
+    async updateUserProfile(email: string, userProfileDto: UserProfileDto, authDto: AuthDto): Promise<void> {
+        try {
+            if ((await this.userRepository.findEmail(email)).nickname == authDto.nickname) {
+                return await this.userRepository.updateUserProfile(email, userProfileDto);
+            } else {
+                throw new UnauthorizedException('Fail user information validate')
+            }
+        } catch(e) {
+            console.log(e);
+            throw new UnauthorizedException('Fail user information validate')
+        }
+    }
+
+
 }

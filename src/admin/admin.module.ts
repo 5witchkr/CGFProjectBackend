@@ -33,7 +33,12 @@ AdminJS.registerAdapter(AdminJSMongoose);
                   },                
                 },
                 {
-                  resource: userModel
+                  resource: userModel,
+                  options: {
+                    properties: {
+                      profileImage: { type: 'richtext'},
+                    }
+                  }
                 },
               ],
               //admin메인화면
