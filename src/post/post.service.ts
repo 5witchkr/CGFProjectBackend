@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException} from '@nestjs/common';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { PostDto } from './dto/post.dto';
 import { PostTitleDto } from './dto/postTitle.dto';
@@ -30,7 +30,7 @@ export class PostService {
     }
 
     async findOnePostService(id: string): Promise<PostDto | null> {
-        return this.postRepository.findPost(id);
+            return this.postRepository.findPost(id);
     }
 
     async deletePostService(id: string, authDto: AuthDto): Promise<void> {

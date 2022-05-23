@@ -4,6 +4,7 @@ import { User, UserDocument } from "./user.schema";
 import {Model} from 'mongoose';
 import { AuthDto } from "./dto/auth.dto";
 import * as bcrypt from 'bcryptjs';
+import { UserProfileDto } from "./dto/auth-user.dto";
 
 @Injectable()
 export class UserRepository{
@@ -32,5 +33,12 @@ export class UserRepository{
 
     async findEmail(email: string): Promise<User | null> {
         return this.userModel.findOne({email});
+    }
+
+
+    async updateUserProfile(email: string, userProfileDto: UserProfileDto): Promise<void> {
+        const {company, profileImage } = userProfileDto;
+        const id = (await this.userModel.findOne({email}))._id;
+        await this.userModel.findByIdAndUpdate(id,{company, profileImage});
     }
 }

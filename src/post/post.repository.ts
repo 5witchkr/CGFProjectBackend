@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PostDto } from "./dto/post.dto";
 import { Post, PostDocument } from "./post.schema";
@@ -35,7 +35,12 @@ export class PostRepository{
 
     //findOne
     async findPost(id: string): Promise<Post | null> {
-        return await this.postModel.findById(id);
+        try {
+            return await this.postModel.findById(id);
+        } catch(e) {
+            console.log(e);
+            throw new UnprocessableEntityException('Nonexistent PostId');
+        }
     }
 
     //delete
