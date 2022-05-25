@@ -1,10 +1,12 @@
-import { Body, Controller, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, UseGuards, ValidationPipe, Res, Get, Req } from '@nestjs/common';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt.guard';
 import { GetUser } from './get-user.decorator';
 import { UserProfileDto } from './dto/auth-user.dto';
+import { Request, Response } from 'express';
+
 
 @Controller('auth')
 export class AuthController {
@@ -18,8 +20,19 @@ export class AuthController {
 
     //login
     @Post('login')
-    login(@Body(ValidationPipe) authLoginDto: AuthLoginDto): Promise<{accessToken}> {
-        return this.authService.login(authLoginDto);
+    async login(
+        @Body(ValidationPipe) authLoginDto: AuthLoginDto,
+        @Res() res: Response
+        ): Promise<any> {
+            const jwt = await this.authService.login(authLoginDto);
+            res.setHeader('Authorization', 'Bearer '+jwt.accessToken);
+            res.cookie('jwt',jwt.accessToken, {
+                httpOnly: true,
+                maxAge: 3600 * 1000 * 2
+            });
+        return res.send({
+            message: 'success'
+        });
     }
 
     //updateUserProfile
@@ -40,4 +53,16 @@ export class AuthController {
     testjwt(@GetUser() authDto: AuthDto) {
         console.log('user:',authDto)
     }
+
+
+    //cookie-jwt test
+    @Get('cookie')
+    getCookies(
+        @Req() req: Request,
+        @Res() res: Response): any {
+            const jwt = req.cookies['jwt'];
+            return res.send({
+                message: 'cookie exist'
+            });
+        }
 }
