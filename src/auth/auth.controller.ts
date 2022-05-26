@@ -23,7 +23,7 @@ export class AuthController {
     async login(
         @Body(ValidationPipe) authLoginDto: AuthLoginDto,
         @Res() res: Response
-        ): Promise<any> {
+        ): Promise<Response> {
             const jwt = await this.authService.login(authLoginDto);
             res.setHeader('Authorization', 'Bearer '+jwt.accessToken);
             res.cookie('jwt',jwt.accessToken, {
@@ -59,7 +59,7 @@ export class AuthController {
     @Get('cookie')
     getCookies(
         @Req() req: Request,
-        @Res() res: Response): any {
+        @Res() res: Response,): any {
             const jwt = req.cookies['jwt'];
             return res.send({
                 message: 'cookie exist'
