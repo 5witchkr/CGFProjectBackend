@@ -7,7 +7,8 @@ async function bootstrap() {
   //cookie parser
   app.use(cookieParser());
   //cors enable
-  app.enableCors()
+  app.enableCors();
+  
   await app.listen(3000);
 }
 bootstrap();
