@@ -12,6 +12,7 @@ export class PostController {
 
 
     //get simple page (no jwt)
+    //todo page sort
     @Get('')
     getPostTitle(): Promise<PostTitleDto[] | null> {
         return this.postService.getPostTitleService();
