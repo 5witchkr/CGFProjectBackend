@@ -16,7 +16,7 @@ export class PostRepository{
 
     //findTitle
     async findTitle(): Promise<PostTitleDto[] | null> {
-        return this.postModel.find({},{"_id": false, "nickname": true, "title":true});
+        return this.postModel.find({},{"_id": true, "nickname": true, "title":true, "date":true});
     }
 
     //findAll
