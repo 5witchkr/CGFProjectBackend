@@ -8,6 +8,7 @@ import { UserProfileDto } from './dto/auth-user.dto';
 import { Request, Response } from 'express';
 
 
+
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
@@ -28,6 +29,10 @@ export class AuthController {
             res.setHeader('Authorization', 'Bearer '+jwt.accessToken);
             res.cookie('jwt',jwt.accessToken, {
                 httpOnly: true,
+                //Mark cross-site cookies as Secure to allow setting them in cross-site contexts
+                secure: true,
+                //Indicate whether a cookie is intended to be set in a cross-site context by specifying its SameSite attribute
+                sameSite: 'none',
                 maxAge: 3600 * 1000 * 2
             });
         return res.send({
