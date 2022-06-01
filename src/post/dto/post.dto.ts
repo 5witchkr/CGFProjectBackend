@@ -16,4 +16,7 @@ export class PostDto {
     @IsNotEmpty()
     contents: string;
 
+    
+    date: Date;
+
 }

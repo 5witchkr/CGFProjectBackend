@@ -15,8 +15,11 @@ export class PostRepository{
 
 
     //findTitle
-    async findTitle(): Promise<PostTitleDto[] | null> {
-        return this.postModel.find({},{"_id": true, "nickname": true, "title":true, "date":true});
+    async findTitle(page: number): Promise<PostTitleDto[] | null> {
+        return this.postModel.find({},{"_id": true, "nickname": true, "title":true, "date":true})
+        .sort({"date":-1})
+        .skip(page*10)
+        .limit(10);
     }
 
     //findAll

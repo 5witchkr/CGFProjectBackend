@@ -12,10 +12,10 @@ export class PostController {
 
 
     //get simple page (no jwt)
-    //todo page sort
-    @Get('')
-    getPostTitle(): Promise<PostTitleDto[] | null> {
-        return this.postService.getPostTitleService();
+    //pagenate & sort
+    @Get(':page')
+    getPostTitle(@Param('page') page: number): Promise<PostTitleDto[] | null> {
+        return this.postService.getPostTitleService(page);
     }
 
 

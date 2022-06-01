@@ -12,4 +12,7 @@ export class PostTitleDto {
     @MinLength(1)
     @IsNotEmpty()
     title: string;
+
+
+    date: Date;
 }
