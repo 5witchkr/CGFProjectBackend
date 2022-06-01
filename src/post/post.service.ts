@@ -11,8 +11,8 @@ export class PostService {
         ){}
 
 
-    async getPostTitleService(): Promise<PostTitleDto[] | null> {
-        return this.postRepository.findTitle();
+    async getPostTitleService(page: number): Promise<PostTitleDto[] | null> {
+        return this.postRepository.findTitle(page);
     }
     
 
