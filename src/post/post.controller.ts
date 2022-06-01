@@ -12,8 +12,8 @@ export class PostController {
 
 
     //get simple page (no jwt)
-    //pagenate & sort
-    @Get(':page')
+    //pagination & sort
+    @Get('/page/:page')
     getPostTitle(@Param('page') page: number): Promise<PostTitleDto[] | null> {
         return this.postService.getPostTitleService(page);
     }
