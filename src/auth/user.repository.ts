@@ -36,6 +36,12 @@ export class UserRepository{
     }
 
 
+    //get userProfilePage
+    async getUserProfile(email: string):Promise<UserProfileDto>{
+        return this.userModel.findOne({email},{"_id":false, "email": true, "nickname": true, "company":true, "profileImage":true})
+    }
+
+
     async updateUserProfile(email: string, userProfileDto: UserProfileDto): Promise<void> {
         const {company, profileImage } = userProfileDto;
         const id = (await this.userModel.findOne({email}))._id;

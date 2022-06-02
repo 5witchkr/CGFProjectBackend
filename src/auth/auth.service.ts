@@ -18,6 +18,7 @@ export class AuthService {
          @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {}
 
+
     //join
     async join(authDto: AuthDto): Promise<void> {
         const { email } = authDto;
@@ -30,6 +31,7 @@ export class AuthService {
             throw new UnauthorizedException('Email Verification Failed');
         }
     }
+
 
     //login
     async login(authLoginDto: AuthLoginDto): Promise<{accessToken: string}>{
@@ -52,6 +54,23 @@ export class AuthService {
             throw new UnauthorizedException('Check your email or password !');
         }
     }
+
+
+
+    //get userProfile
+    async getUserProfile(email: string, authDto: AuthDto):Promise<UserProfileDto> {
+        try {
+            if (email == authDto.email) {
+                return await this.userRepository.getUserProfile(email);
+            } else {
+                throw new UnauthorizedException('Fail user information validate')
+            }
+        } catch(e) {
+            console.log(e);
+            throw new UnauthorizedException('Fail user information validate')
+        }
+    }
+
 
 
 
