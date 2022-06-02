@@ -40,6 +40,18 @@ export class AuthController {
         });
     }
 
+    
+    //getUserProfile
+    @Get(':email')
+    @UseGuards(JwtAuthGuard)
+    getProfile(
+        @Param('email') email: string,
+        @GetUser() authDto: AuthDto): Promise<UserProfileDto> {
+        return this.authService.getUserProfile(email, authDto);
+    }
+    
+
+
     //updateUserProfile
     @Put(':email')
     @UseGuards(JwtAuthGuard)
@@ -47,7 +59,6 @@ export class AuthController {
         @Param('email') email: string,
         @Body(ValidationPipe) userProfileDto: UserProfileDto,
         @GetUser() authDto: AuthDto): Promise<void> {
-            console.log('user:',authDto)
             return this.authService.updateUserProfile(email, userProfileDto, authDto);
         }
 
