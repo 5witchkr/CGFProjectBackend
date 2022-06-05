@@ -37,8 +37,8 @@ export class UserRepository{
 
 
     //get userProfilePage
-    async getUserProfile(email: string):Promise<UserProfileDto>{
-        return this.userModel.findOne({email},{"_id":false, "email": true, "nickname": true, "company":true, "profileImage":true})
+    async getUserProfile(nickname: string):Promise<UserProfileDto>{
+        return this.userModel.findOne({nickname},{"_id":false, "email": true, "nickname": true, "company":true, "profileImage":true})
     }
 
 
