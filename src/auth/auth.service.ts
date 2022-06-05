@@ -58,10 +58,10 @@ export class AuthService {
 
 
     //get userProfile
-    async getUserProfile(email: string, authDto: AuthDto):Promise<UserProfileDto> {
+    async getUserProfile(nickname: string, authDto: AuthDto):Promise<UserProfileDto> {
         try {
-            if (email == authDto.email) {
-                return await this.userRepository.getUserProfile(email);
+            if (nickname == authDto.nickname) {
+                return await this.userRepository.getUserProfile(nickname);
             } else {
                 throw new UnauthorizedException('Fail user information validate')
             }

@@ -42,12 +42,12 @@ export class AuthController {
 
     
     //getUserProfile
-    @Get(':email')
+    @Get(':nickname')
     @UseGuards(JwtAuthGuard)
     getProfile(
-        @Param('email') email: string,
+        @Param('nickname') nickname: string,
         @GetUser() authDto: AuthDto): Promise<UserProfileDto> {
-        return this.authService.getUserProfile(email, authDto);
+        return this.authService.getUserProfile(nickname, authDto);
     }
     
 
