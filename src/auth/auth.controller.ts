@@ -53,13 +53,13 @@ export class AuthController {
 
 
     //updateUserProfile
-    @Put(':email')
+    @Put(':nickname')
     @UseGuards(JwtAuthGuard)
     updateProfile(
-        @Param('email') email: string,
+        @Param('nickname') nickname: string,
         @Body(ValidationPipe) userProfileDto: UserProfileDto,
         @GetUser() authDto: AuthDto): Promise<void> {
-            return this.authService.updateUserProfile(email, userProfileDto, authDto);
+            return this.authService.updateUserProfile(nickname, userProfileDto, authDto);
         }
 
 
