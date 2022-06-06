@@ -42,9 +42,9 @@ export class UserRepository{
     }
 
 
-    async updateUserProfile(email: string, userProfileDto: UserProfileDto): Promise<void> {
+    async updateUserProfile(nickname: string, userProfileDto: UserProfileDto): Promise<void> {
         const {company, profileImage } = userProfileDto;
-        const id = (await this.userModel.findOne({email}))._id;
+        const id = (await this.userModel.findOne({nickname}))._id;
         await this.userModel.findByIdAndUpdate(id,{company, profileImage});
     }
 }
