@@ -5,6 +5,7 @@ import { PostModule } from './post/post.module';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { MailauthModule } from './mailauth/mailauth.module';
+import { CommentModule } from './comment/comment.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { MailauthModule } from './mailauth/mailauth.module';
     PostModule,
     AdminModule,
     AuthModule,
-    MailauthModule
+    MailauthModule,
+    CommentModule
   ],
 })
 export class AppModule {}
