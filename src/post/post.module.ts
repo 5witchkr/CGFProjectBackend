@@ -8,8 +8,9 @@ import { PostRepository } from './post.repository';
 @Module({
     imports: [MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }])
     ],
-    //adminjs로 접근하기위해 exports로 캡슐화(은닉) 해제
-    exports: [MongooseModule],
+    //mongooseModule -> adminjs로 접근하기위해 exports로 캡슐화(은닉) 해제
+    //postRepository -> comment
+    exports: [MongooseModule, PostRepository],
     controllers: [PostController],
     providers: [PostService, PostRepository],
 })

@@ -28,6 +28,6 @@ import { User, UserSchema } from './user.schema';
   ],
   controllers: [AuthController],
   providers: [AuthService, UserRepository, JwtStrategy],
-  exports: [MongooseModule, JwtStrategy, PassportModule]
+  exports: [MongooseModule, JwtStrategy, PassportModule, UserRepository]
 })
 export class AuthModule {}

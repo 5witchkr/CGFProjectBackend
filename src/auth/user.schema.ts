@@ -5,6 +5,12 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
+
+  @Prop({
+    unique: true
+  })
+  _id: string;
+
   @Prop({
     unique: true
   })

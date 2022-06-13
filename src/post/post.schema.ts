@@ -5,6 +5,10 @@ export type PostDocument = Post & Document;
 
 @Schema()
 export class Post {
+
+  @Prop()
+  _id: string;
+
   @Prop()
   nickname: string;
 
