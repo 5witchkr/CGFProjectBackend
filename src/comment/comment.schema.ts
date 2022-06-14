@@ -1,18 +1,34 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { Document, Types } from 'mongoose';
 
-export type CommentDocument = Comment & Document;
+
 
 @Schema()
-export class Comment {
-  @Prop()
-  nickname: string;
+export class Comments extends Document {
 
-  @Prop()
-  commentBody: string;
+    @Prop({
+        required: true
+    })
+    @IsNotEmpty()
+    @IsString()
+    nickname: string;
 
-  @Prop()
-  date: Date;
+    @Prop({
+        type: Types.ObjectId,
+        required: true,
+        ref: 'post',
+      })
+      @IsNotEmpty()
+      info: Types.ObjectId;
+
+    @Prop()
+    @IsNotEmpty()
+    @IsString()
+    commentBody: string;
+
+    @Prop()
+    date: Date;
 }
 
-export const CommentSchema = SchemaFactory.createForClass(Comment);
+export const CommentsSchema = SchemaFactory.createForClass(Comments);
