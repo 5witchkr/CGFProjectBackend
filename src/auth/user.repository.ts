@@ -35,6 +35,11 @@ export class UserRepository{
         return this.userModel.findOne({email});
     }
 
+    //for commentdto validate
+    async findNickname(nickname: string): Promise<User | null> {
+        return this.userModel.findOne({nickname},{"_id": true, "nickname": true})
+    }
+
 
     //get userProfilePage
     async getUserProfile(nickname: string):Promise<UserProfileDto>{

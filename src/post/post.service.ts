@@ -29,8 +29,10 @@ export class PostService {
         }
     }
 
+    //todo return post and comment
     async findOnePostService(id: string): Promise<PostDto | null> {
-            return this.postRepository.findPost(id);
+            const postdetail =  await this.postRepository.findPostAndComment(id);
+            return postdetail.readOnlyData;
     }
 
     async deletePostService(id: string, authDto: AuthDto): Promise<void> {
