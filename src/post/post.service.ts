@@ -12,7 +12,8 @@ export class PostService {
 
 
     async getPostTitleService(page: number): Promise<PostTitleDto[] | null> {
-        return this.postRepository.findTitle(page);
+        const postPage = await this.postRepository.findTitle(page);
+        return postPage.map((post) => post.readOnlyData);
     }
     
 
